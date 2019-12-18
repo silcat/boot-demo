@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by sunlichuan on 18-6-6
- */
+
 @Slf4j
 public class CryptUtils {
 

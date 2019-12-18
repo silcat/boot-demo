@@ -1,8 +1,6 @@
 package com.boot.demo.utils;
 
-/**
- * Created by baomingli on 2018/8/14.
- */
+
 public class DataHelper {
     private static final ThreadLocal<String> creditLendRequestIdHolder = new ThreadLocal<String>();
 

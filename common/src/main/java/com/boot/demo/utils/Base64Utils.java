@@ -6,9 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-/**
- * Created by antonio on 16/5/3.
- */
 public class Base64Utils {
 
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;

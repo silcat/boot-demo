@@ -2,10 +2,6 @@ package com.boot.demo.utils;
 
 import java.util.zip.CRC32;
 
-/**
- * @author sunlichuan
- * Created by sunlichuan on 19-2-18
- */
 public class Crc32Utils {
 
     public static long getValueFromString(String creditRequestId) {

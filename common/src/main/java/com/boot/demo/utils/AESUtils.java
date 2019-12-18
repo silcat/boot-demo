@@ -7,9 +7,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-/**
- * Created by bml on 2015/9/11.
- */
+
 public class AESUtils {
 
 
