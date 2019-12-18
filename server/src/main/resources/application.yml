@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ucreditserver
+  profiles:
+    active: @configProfile@
+management:
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /actuator
+  server:
+    ssl:
+      enabled: false
+    endpoint:
+      health:
+        show-details: always
+mybatis:
+  # mapper文件地址
+  mapper-locations: classpath:mapper/*.xml

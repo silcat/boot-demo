@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.renrendai.loan.ucredit.mapper.AuthFlowNodeMapper">
+  <resultMap id="BaseResultMap" type="com.renrendai.loan.ucredit.common.model.server.AuthFlowNode">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="flow_key" jdbcType="VARCHAR" property="flowKey" />
+    <result column="node_type" jdbcType="VARCHAR" property="nodeType" />
+    <result column="next" jdbcType="VARCHAR" property="next" />
+    <result column="node_order" jdbcType="INTEGER" property="nodeOrder" />
+    <result column="module" jdbcType="INTEGER" property="module" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <parameterMap id="ParamMap" type="com.renrendai.loan.ucredit.common.model.server.AuthFlowNode"/>
+  <sql id="Base_Column_List">
+		id, flow_key, node_type, `next`, `node_order`, `module`, create_time
+  </sql>
+
+  <select id="getByParam" resultMap="BaseResultMap" parameterType="map">
+    select <include refid="Base_Column_List"></include>
+    from ms_loanflow_flow_node
+    <where>
+      <if test="flowKey != null">
+        flow_key=#{flowKey, jdbcType=VARCHAR}
+      </if>
+      <if test="nodeType != null">
+        and node_type=#{nodeType, jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by `node_order`
+  </select>
+</mapper>

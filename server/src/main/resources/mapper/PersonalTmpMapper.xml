@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.renrendai.loan.ucredit.mapper.PersonalTmpMapper">
+  <resultMap id="BaseResultMap" type="com.renrendai.loan.ucredit.common.model.server.PersonalTmp">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="home_address" jdbcType="VARCHAR" property="homeAddress" />
+  </resultMap>
+
+  <parameterMap id="ParamMap" type="com.renrendai.loan.ucredit.common.model.server.PersonalTmp"/>
+  <sql id="Base_Column_List">
+    id, id_no, home_address
+  </sql>
+
+  <select id="selectPersonalTmps" resultMap="BaseResultMap" parameterType="map">
+    select <include refid="Base_Column_List"></include>
+    from `ms_dataapi_personal_tmp`
+    where id_no != '' and home_address != ''
+    order by id
+    limit #{offset, jdbcType=INTEGER},#{rows, jdbcType=INTEGER}
+  </select>
+</mapper>

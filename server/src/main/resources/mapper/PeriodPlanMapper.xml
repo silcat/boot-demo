@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.renrendai.loan.ucredit.mapper.PeriodPlanMapper">
+  <resultMap id="BaseResultMap" type="com.renrendai.loan.ucredit.common.model.server.PeriodPlan">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="lend_request_id" jdbcType="VARCHAR" property="lendRequestId" />
+    <result column="plan_id" jdbcType="VARCHAR" property="planId" />
+    <result column="phase" jdbcType="TINYINT" property="phase" />
+    <result column="repay_principal" jdbcType="DECIMAL" property="repayPrincipal" />
+    <result column="repay_interest" jdbcType="DECIMAL" property="repayInterest" />
+    <result column="repay_mgmt_fee" jdbcType="DECIMAL" property="repayMgmtFee" />
+    <result column="repay_other_fees" jdbcType="DECIMAL" property="repayOtherFees" />
+    <result column="rest_principal" jdbcType="DECIMAL" property="restPrincipal" />
+    <result column="liquidated_fee" jdbcType="DECIMAL" property="liquidatedFee" />
+    <result column="penalty_interest" jdbcType="DECIMAL" property="penaltyInterest" />
+    <result column="deduct_amount" jdbcType="DECIMAL" property="deductAmount" />
+    <result column="repay_day" jdbcType="INTEGER" property="repayDay" />
+    <result column="actural_repay_day" jdbcType="INTEGER" property="acturalRepayDay" />
+    <result column="bonus" jdbcType="DECIMAL" property="bonus" />
+    <result column="repay_total" jdbcType="DECIMAL" property="repayTotal" />
+    <result column="repaid_amount" jdbcType="DECIMAL" property="repaidAmount" />
+    <result column="repay_status" jdbcType="INTEGER" property="repayStatus" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="req_seq_no" jdbcType="VARCHAR" property="reqSeqNo" />
+    <result column="guarantee_fee" property="guaranteeFee" jdbcType="DECIMAL"/>
+    <result column="guarantee_service_fee" property="guaranteeServiceFee" jdbcType="DECIMAL"/>
+    <result column="actual_repaid_mgmt_fee" jdbcType="DECIMAL" property="actualRepaidMgmtFee" />
+    <result column="actual_repaid_principal" jdbcType="DECIMAL" property="actualRepaidPrincipal" />
+    <result column="actual_repaid_other_fees" jdbcType="DECIMAL" property="actualRepaidOtherFees" />
+    <result column="actual_repaid_penalty_interest" jdbcType="DECIMAL" property="actualRepaidPenaltyInterest" />
+    <result column="actual_repaid_liquidated_fee" jdbcType="DECIMAL" property="actualRepaidLiquidatedFee" />
+    <result column="actual_repaid_interest" jdbcType="DECIMAL" property="actualRepaidInterest" />
+    <result column="repay_type" jdbcType="TINYINT" property="repayType" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <parameterMap id="ParamMap" type="com.renrendai.loan.ucredit.common.model.server.PeriodPlan"/>
+  <sql id="Base_Column_List">
+		id, lend_request_id, plan_id, phase, repay_principal, repay_interest, repay_mgmt_fee, repay_other_fees,
+		rest_principal, liquidated_fee, penalty_interest, deduct_amount, repay_day, actural_repay_day, bonus,
+		repay_total, repaid_amount, repay_status, status, req_seq_no, actual_repaid_mgmt_fee, actual_repaid_principal,
+		actual_repaid_other_fees, actual_repaid_penalty_interest, actual_repaid_liquidated_fee, actual_repaid_interest,
+		repay_type, create_time, update_time
+	</sql>
+
+  <select id="getByParam" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from ms_finance_period
+    <where>
+      <if test="lendRequestId != null">
+        lend_request_id = #{lendRequestId, jdbcType=VARCHAR}
+      </if>
+      <if test="phase!= null">
+        and phase = #{phase, jdbcType=INTEGER}
+      </if>
+      <if test="beginTime != null">
+        and repay_day >= #{beginTime, jdbcType=INTEGER}
+      </if>
+      <if test="endTime != null">
+        and repay_day <![CDATA[ < ]]> #{endTime, jdbcType=INTEGER}
+      </if>
+      <if test="repayStatus != null">
+        and repay_status = #{repayStatus, jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertBatchPeriod" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+    insert into ms_finance_period (lend_request_id, plan_id, phase, repay_principal, repay_interest,
+    repay_mgmt_fee, repay_other_fees, rest_principal, liquidated_fee, penalty_interest, deduct_amount, repay_day,
+    actural_repay_day, bonus, repay_total, repaid_amount, repay_status, status, req_seq_no, actual_repaid_mgmt_fee,
+    actual_repaid_principal, actual_repaid_other_fees, actual_repaid_penalty_interest,
+    actual_repaid_liquidated_fee, actual_repaid_interest, repay_type)
+    values
+    <foreach collection="list" index="index" item="info" separator=",">
+      (
+      #{info.lendRequestId, jdbcType=VARCHAR},
+      #{info.planId, jdbcType=VARCHAR},
+      #{info.phase, jdbcType=TINYINT},
+      #{info.repayPrincipal, jdbcType=DECIMAL},
+      #{info.repayInterest, jdbcType=DECIMAL},
+      #{info.repayMgmtFee, jdbcType=DECIMAL},
+      #{info.repayOtherFees, jdbcType=DECIMAL},
+      #{info.restPrincipal, jdbcType=DECIMAL},
+      #{info.liquidatedFee, jdbcType=DECIMAL},
+      #{info.penaltyInterest, jdbcType=DECIMAL},
+      #{info.deductAmount, jdbcType=DECIMAL},
+      #{info.repayDay, jdbcType=INTEGER},
+      #{info.acturalRepayDay, jdbcType=INTEGER},
+      #{info.bonus, jdbcType=DECIMAL},
+      #{info.repayTotal, jdbcType=DECIMAL},
+      #{info.repaidAmount, jdbcType=DECIMAL},
+      #{info.repayStatus, jdbcType=INTEGER},
+      #{info.status, jdbcType=TINYINT},
+      #{info.reqSeqNo, jdbcType=VARCHAR},
+      #{info.actualRepaidMgmtFee, jdbcType=DECIMAL},
+      #{info.actualRepaidPrincipal, jdbcType=DECIMAL},
+      #{info.actualRepaidOtherFees, jdbcType=DECIMAL},
+      #{info.actualRepaidPenaltyInterest, jdbcType=DECIMAL},
+      #{info.actualRepaidLiquidatedFee, jdbcType=DECIMAL},
+      #{info.actualRepaidInterest, jdbcType=DECIMAL},
+      #{info.repayType, jdbcType=TINYINT}
+      )
+    </foreach>
+  </insert>
+
+</mapper>

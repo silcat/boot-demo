@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.renrendai.loan.ucredit.mapper.LoanMapper">
+  <resultMap id="BaseResultMap" type="com.renrendai.loan.ucredit.common.model.server.Loan">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="loan_id" jdbcType="BIGINT" property="loanId" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="lend_request_id" jdbcType="VARCHAR" property="lendRequestId" />
+    <result column="credit_request_id" jdbcType="VARCHAR" property="creditRequestId" />
+    <result column="borrow_type" jdbcType="TINYINT" property="borrowType" />
+    <result column="system_source" jdbcType="TINYINT" property="systemSource" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="month_amount" jdbcType="DECIMAL" property="monthAmount" />
+    <result column="borrow_money" jdbcType="DECIMAL" property="borrowMoney" />
+    <result column="signed_amount" jdbcType="DECIMAL" property="signedAmount" />
+    <result column="integ_service_rate" jdbcType="DECIMAL" property="integServiceRate" />
+    <result column="second_half_service_rate" jdbcType="DECIMAL" property="secondHalfServiceRate" />
+    <result column="total_phase" jdbcType="TINYINT" property="totalPhase" />
+    <result column="in_advance_liqui_dated" jdbcType="DECIMAL" property="inAdvanceLiquiDated" />
+    <result column="current_phase" jdbcType="TINYINT" property="currentPhase" />
+    <result column="start_time" jdbcType="INTEGER" property="startTime" />
+    <result column="end_time" jdbcType="INTEGER" property="endTime" />
+    <result column="loan_time" jdbcType="TIMESTAMP" property="loanTime" />
+    <result column="repay_status" jdbcType="INTEGER" property="repayStatus" />
+    <result column="audit_status" jdbcType="INTEGER" property="auditStatus" />
+    <result column="pay_off_time" jdbcType="TIMESTAMP" property="payOffTime" />
+    <result column="ref_id" jdbcType="VARCHAR" property="refId" />
+    <result column="error_message" jdbcType="VARCHAR" property="errorMessage" />
+    <result column="product_key" jdbcType="VARCHAR" property="productKey" />
+    <result column="error_code" jdbcType="VARCHAR" property="errorCode" />
+    <result column="begin_service_rate" jdbcType="DECIMAL" property="beginServiceRate" />
+    <result column="begin_service_fee" jdbcType="DECIMAL" property="beginServiceFee" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="first_bill_date" jdbcType="BIGINT" property="firstBillDate" />
+    <result column="withdraw_type" jdbcType="TINYINT" property="withdrawType" />
+    <result column="proxy_bill_key" jdbcType="VARCHAR" property="proxyBillKey" />
+    <result column="last_loan_payoff_amount" jdbcType="DECIMAL" property="lastLoanPayoffAmount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="signed_time" jdbcType="TIMESTAMP" property="signedTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    loan_id, uid, lend_request_id, credit_request_id, borrow_type, system_source, borrow_money, signed_amount, in_advance_liqui_dated,
+    integ_service_rate, second_half_service_rate ,total_phase, current_phase, start_time, end_time, loan_time,
+    repay_status, audit_status, pay_off_time,status, ref_id, error_message, product_key, error_code,
+    begin_service_rate, begin_service_fee, type, subject, channel, first_bill_date, withdraw_type,
+    proxy_bill_key, last_loan_payoff_amount, create_time, update_time, signed_time
+  </sql>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <select id="selectByExample" parameterType="com.renrendai.loan.ucredit.common.model.server.LoanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ms_finance_loan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <update id="updateByLendRequestId" parameterType="com.renrendai.loan.ucredit.common.model.server.Loan">
+    update ms_finance_loan
+    <set>
+      <if test="creditRequestId != null">
+        credit_request_id = #{creditRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMoney != null">
+        borrow_money = #{borrowMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="signedAmount != null">
+        signed_amount = #{signedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="inAdvanceLiquiDated != null">
+        in_advance_liqui_dated = #{inAdvanceLiquiDated,jdbcType=DECIMAL},
+      </if>
+      <if test="integServiceRate != null">
+        integ_service_rate = #{integServiceRate,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPhase != null">
+        total_phase = #{totalPhase,jdbcType=TINYINT},
+      </if>
+      <if test="currentPhase != null">
+        current_phase = #{currentPhase,jdbcType=TINYINT},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="loanTime != null">
+        loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payOffTime != null">
+        pay_off_time = #{payOffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayStatus != null">
+        repay_status = #{repayStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="refId != null">
+        ref_id = #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        error_message = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="productKey != null">
+        product_key = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCode != null">
+        error_code = #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="beginServiceRate != null">
+        begin_service_rate = #{beginServiceRate,jdbcType=VARCHAR},
+      </if>
+      <if test="beginServiceFee != null">
+        begin_service_fee = #{beginServiceFee,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="firstBillDate != null">
+        first_bill_date = #{firstBillDate,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawType != null">
+        withdraw_type = #{withdrawType,jdbcType=TINYINT},
+      </if>
+      <if test="proxyBillKey != null">
+        proxy_bill_key = #{proxyBillKey,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoanPayoffAmount != null">
+        last_loan_payoff_amount = #{lastLoanPayoffAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowType != null">
+        borrow_type = #{borrowType,jdbcType=TINYINT},
+      </if>
+      <if test="systemSource != null">
+        system_source = #{systemSource,jdbcType=TINYINT},
+      </if>
+      <if test="secondHalfServiceRate != null">
+        second_half_service_rate = #{secondHalfServiceRate,jdbcType=DECIMAL},
+      </if>
+      <if test="signedTime != null">
+        signed_time = #{signedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where lend_request_id = #{lendRequestId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByCreditRequestId" parameterType="com.renrendai.loan.ucredit.common.model.server.Loan">
+    update ms_finance_loan
+    <set>
+      <if test="creditRequestId != null">
+        credit_request_id = #{creditRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="lendRequestId != null">
+        lend_request_id = #{lendRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMoney != null">
+        borrow_money = #{borrowMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="signedAmount != null">
+        signed_amount = #{signedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="inAdvanceLiquiDated != null">
+        in_advance_liqui_dated = #{inAdvanceLiquiDated,jdbcType=DECIMAL},
+      </if>
+      <if test="integServiceRate != null">
+        integ_service_rate = #{integServiceRate,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPhase != null">
+        total_phase = #{totalPhase,jdbcType=TINYINT},
+      </if>
+      <if test="currentPhase != null">
+        current_phase = #{currentPhase,jdbcType=TINYINT},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="loanTime != null">
+        loan_time = #{loanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payOffTime != null">
+        pay_off_time = #{payOffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayStatus != null">
+        repay_status = #{repayStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="refId != null">
+        ref_id = #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null">
+        error_message = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="productKey != null">
+        product_key = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCode != null">
+        error_code = #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="beginServiceRate != null">
+        begin_service_rate = #{beginServiceRate,jdbcType=VARCHAR},
+      </if>
+      <if test="beginServiceFee != null">
+        begin_service_fee = #{beginServiceFee,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="firstBillDate != null">
+        first_bill_date = #{firstBillDate,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawType != null">
+        withdraw_type = #{withdrawType,jdbcType=TINYINT},
+      </if>
+      <if test="proxyBillKey != null">
+        proxy_bill_key = #{proxyBillKey,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoanPayoffAmount != null">
+        last_loan_payoff_amount = #{lastLoanPayoffAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowType != null">
+        borrow_type = #{borrowType,jdbcType=TINYINT},
+      </if>
+      <if test="systemSource != null">
+        system_source = #{systemSource,jdbcType=TINYINT},
+      </if>
+      <if test="secondHalfServiceRate != null">
+        second_half_service_rate = #{secondHalfServiceRate,jdbcType=DECIMAL},
+      </if>
+      <if test="signedTime != null">
+        signed_time = #{signedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where credit_request_id = #{creditRequestId,jdbcType=VARCHAR}
+  </update>
+</mapper>

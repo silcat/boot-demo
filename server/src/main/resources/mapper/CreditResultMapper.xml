@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.renrendai.loan.ucredit.mapper.CreditResultMapper">
+  <resultMap id="BaseResultMap" type="com.renrendai.loan.ucredit.common.model.server.CreditResult">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="credit_request_id" jdbcType="VARCHAR" property="creditRequestId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="job_id" jdbcType="VARCHAR" property="jobId" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="main_reason_code" jdbcType="VARCHAR" property="mainReasonCode" />
+    <result column="main_reason_desc" jdbcType="VARCHAR" property="mainReasonDesc" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="hj_loan_count" jdbcType="VARCHAR" property="hjLoanCount" />
+    <result column="min_suggest_money_amount" jdbcType="VARCHAR" property="minSuggestMoneyAmount" />
+
+  </resultMap>
+  <parameterMap id="ParamMap" type="com.renrendai.loan.ucredit.common.model.server.CreditResult"/>
+  <sql id="Base_Column_List">
+		id, uid, credit_request_id,job_id,status,`desc`,amount, main_reason_code,main_reason_desc,
+		expire_time,create_time, update_time,hj_loan_count,min_suggest_money_amount
+	</sql>
+  <select id="selectByCreditRequestId" resultMap="BaseResultMap" parameterType="String">
+    select
+    <include refid="Base_Column_List"/>
+    from ms_dataapi_credit_result
+    where credit_request_id=#{creditRequestId}
+  </select>
+</mapper>

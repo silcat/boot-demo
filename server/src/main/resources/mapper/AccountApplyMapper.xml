@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.renrendai.loan.ucredit.mapper.AccountApplyMapper">
+  <resultMap id="BaseResultMap" type="com.renrendai.loan.ucredit.common.model.server.AccountApply">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="rrd_card_id" jdbcType="BIGINT" property="rrdCardId" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="bank_code" jdbcType="VARCHAR" property="bankCode" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="apply_status" jdbcType="INTEGER" property="applyStatus" />
+    <result column="proxy_serial_no" jdbcType="VARCHAR" property="proxySerialNo" />
+    <result column="sms_serial_no" jdbcType="VARCHAR" property="smsSerialNo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

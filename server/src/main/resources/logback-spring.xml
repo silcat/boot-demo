@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+    <property name="ES_PATTERN" value="%d^|%level^|%thread^|%c^|%M^|%X{X-B3-TraceId}-%X{X-B3-SpanId}^|%msg%n" />
+    <!-- 开发环境 -->
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${ES_PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.renrendai.loan.ucredit" level="DEBUG" />
+        <root level="WARN">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 文件路径 -->
+            <file>/opt/app/tomcat/logs/server.eslog</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <!-- rollover daily -->
+                <fileNamePattern>/opt/app/tomcat/logs/server-%d{yyyy-MM-dd}.%i.eslog</fileNamePattern>
+                <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+                <maxFileSize>20MB</maxFileSize>
+                <maxHistory>60</maxHistory>
+                <totalSizeCap>10GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${ES_PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.renrendai.loan.ucredit" level="DEBUG" />
+        <root level="WARN">
+            <appender-ref ref="ROLLING" />
+        </root>
+    </springProfile>
+</configuration>
