@@ -11,9 +11,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/**
- * Created by sunlichuan on 18-6-19
- */
 @Configuration
 @EnableAsync
 public class ExecutorPoolConfig {

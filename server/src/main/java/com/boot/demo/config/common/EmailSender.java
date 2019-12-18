@@ -8,11 +8,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-
-/**
- * @author sunlichuan
- * Created by sunlichuan on 18-9-17
- */
 @Slf4j
 @Component
 public class EmailSender {

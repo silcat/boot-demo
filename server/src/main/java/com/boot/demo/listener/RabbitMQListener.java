@@ -2,8 +2,8 @@ package com.boot.demo.listener;
 
 import com.boot.demo.model.mq.MQNotify;
 import com.boot.demo.service.IAsyncService;
-import com.boot.demo.utils.JsonUtils;
 import com.boot.demo.config.common.TraceIdUtil;
+import com.boot.demo.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;

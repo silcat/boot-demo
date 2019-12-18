@@ -1,6 +1,5 @@
 package com.boot.demo.common;
 
-import com.boot.demo.utils.RES_STATUS;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,17 +30,6 @@ public class Result<T> {
     private String msg = ResultStatus.SERVER_UNKNOW_ERROR.msg;
 
 
-    public Result(RES_STATUS status) {
-        super();
-        this.code = status.code;
-        this.msg = status.msg;
-    }
-
-    public Result(RES_STATUS status, String message) {
-        super();
-        this.code = status.code;
-        this.msg = message;
-    }
 
     public Result(int code, String msg) {
         super();
@@ -49,9 +37,5 @@ public class Result<T> {
         this.msg = msg;
     }
 
-    public Result(T data, RES_STATUS status) {
-        this(status);
-        this.data = data;
-    }
 
 }

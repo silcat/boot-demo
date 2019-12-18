@@ -3,8 +3,8 @@ package com.boot.demo.config.mvc;
 import com.alibaba.fastjson.JSON;
 import com.boot.demo.common.Result;
 import com.boot.demo.common.ResultStatus;
-import com.renrendai.loan.ucredit.common.exception.UcreditException;
 import com.boot.demo.config.filter.RequestWrapper;
+import com.boot.demo.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -61,10 +61,10 @@ public class CustomerHandlerExceptionResolver extends AbstractHandlerExceptionRe
     private Result parseException(Exception e) {
         Result result = new Result();
         //业务失败的异常
-        if (e instanceof UcreditException) {
+        if (e instanceof ServerException) {
             result = Result.builder()
-                    .code(((UcreditException) e).getErrorCode())
-                    .msg(((UcreditException) e).getErrorMsg())
+                    .code(((ServerException) e).getErrorCode())
+                    .msg(((ServerException) e).getErrorMsg())
                     .build();
             //URL请求错误异常
         } else if (e instanceof NoHandlerFoundException) {

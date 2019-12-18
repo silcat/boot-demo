@@ -1,5 +1,6 @@
 package com.boot.demo.config.common;
 
+
 import com.boot.demo.utils.RandomPortUtils;
 import com.xxl.job.core.executor.XxlJobExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,15 +11,10 @@ import org.springframework.context.annotation.Configuration;
 
 import java.net.UnknownHostException;
 
-/**
- * @ClassName XxlJobConfig
- * @Description
- * @Author zhangkuan
- * @Date 2018/7/25 12:29
- */
+
 @Slf4j
 @Configuration
-@ComponentScan(basePackages = "com.renrendai.loan.ucredit.jobhandler")
+@ComponentScan(basePackages = "com.boot.demo.jobhandler")
 public class XxlJobConfig {
 
     @Value("${xxl.job.admin.addresses}")
