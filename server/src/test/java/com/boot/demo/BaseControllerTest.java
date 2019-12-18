@@ -16,9 +16,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by baomingli on 2018/8/21.
- */
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = UCreditApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BaseControllerTest {

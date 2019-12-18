@@ -6,11 +6,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import tk.mybatis.spring.annotation.MapperScan;
 
-/**
- * @author sunlichuan
- */
+
 @SpringBootApplication
-@MapperScan("com.renrendai.loan.ucredit.mapper")
+@MapperScan("com.boot.demo.mapper")
 public class UCreditApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
