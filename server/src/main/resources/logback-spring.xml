@@ -30,7 +30,7 @@
                 <pattern>${ES_PATTERN}</pattern>
             </encoder>
         </appender>
-        <logger name="com.renrendai.loan.ucredit" level="DEBUG" />
+        <logger name="com.boot.demo" level="DEBUG" />
         <root level="WARN">
             <appender-ref ref="ROLLING" />
         </root>
