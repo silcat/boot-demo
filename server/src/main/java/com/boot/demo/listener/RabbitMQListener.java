@@ -1,12 +1,10 @@
 package com.boot.demo.listener;
 
 import com.boot.demo.model.mq.MQNotify;
-import com.boot.demo.service.IAsyncService;
 import com.boot.demo.config.common.TraceIdUtil;
 import com.boot.demo.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -15,8 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMQListener {
 
-    @Autowired
-    private IAsyncService iAsyncService;
+
 
 
     /**
@@ -27,7 +24,6 @@ public class RabbitMQListener {
     public void notifyLoanflow(MQNotify mqNotify) {
         TraceIdUtil.setTraceId(mqNotify.getTraceId());
         log.info("接收流程MQ通知: {}", JsonUtils.toJson(mqNotify));
-        iAsyncService.asynMq();
         TraceIdUtil.remove();
     }
 
