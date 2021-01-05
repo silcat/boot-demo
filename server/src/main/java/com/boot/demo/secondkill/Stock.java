@@ -1,14 +1,11 @@
 package com.boot.demo.secondkill;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-/**
- * @auther G.Fukang
- * @date 6/7 10:36
- */
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Stock {
 
     private Integer id;

@@ -203,4 +203,15 @@ public class RedisServiceImpl implements IRedisService {
             }
         });
     }
+
+    @Override
+    public void incr(String key) {
+        Long increment = template.boundValueOps(key).increment();
+
+    }
+
+    @Override
+    public void decr(String key) {
+        Long decrement = template.boundValueOps(key).decrement();
+    }
 }

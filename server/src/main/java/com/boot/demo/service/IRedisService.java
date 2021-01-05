@@ -129,4 +129,6 @@ public interface IRedisService {
      * @return
      */
     Boolean limit(String key, String limit);
+    void incr(String key);
+    void decr(String key);
 }
