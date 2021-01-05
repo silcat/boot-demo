@@ -123,7 +123,7 @@ public class OrderServiceImpl implements IOrderService{
             isFinish = true;
             System.out.println("库存不足");
             redisTemplate.unwatch();
-            return null;
+            throw new RuntimeException("秒杀结束");
         }
 
         // 开始事务
