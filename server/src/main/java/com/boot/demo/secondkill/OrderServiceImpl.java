@@ -29,11 +29,11 @@ public class OrderServiceImpl implements IOrderService{
     private Boolean isFinish = false;
 
     /**
-     * 数据库乐观锁
+     * redis乐观锁
      * @param sid
      */
     @Override
-    public void createOrderWithLimitAndRedisAndKafka(int sid) {
+    public void createOrderWithLimitAndRedisWatchAndKafka(int sid) {
         if (!limitService.limit()){
             throw new RuntimeException("请求数量达到最大限制");
         }
@@ -51,22 +51,19 @@ public class OrderServiceImpl implements IOrderService{
     }
 
     /**
-     *  redis乐观锁
+     *  数据库乐观锁
      * @param sid
      */
 
     @Override
-    public void createOrderWithLimitAndRedisWatchAndKafka(int sid) {
+    public void createOrderWithLimitAndRedisAndKafka(int sid) {
         if (!limitService.limit()){
             throw new RuntimeException("请求数量达到最大限制");
         }
         Stock stock = checkStockWithRedis(sid);
         //异步更新库存（实际通过消息队列）
         saleStockOptimsticWithRedis(stock);
-        int res = stockService.updateStockByOptimistic(stock);
-        if (res == 0) {
-            throw new RuntimeException("并发更新库存失败");
-        }
+
     }
     private Stock checkStockWithRedis(int sid) {
         Integer count = Integer.parseInt(redisService.get(RedisUtils.STOCK_COUNT + sid));
