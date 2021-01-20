@@ -29,29 +29,34 @@ spring:
         jdbc-url: jdbc:mysql://localhost:3306/sl1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
         username: root
         password: root
-      #分库分表
-      sharding:
-      #根据age分库
-        default-database-strategy:
-          inline:
-            shardingColumn: age
-            algorithm-expression: master$->{age % 2}
-        #根据id分表
-        tables:
-          user:
-            actualDataNodes: master$->{0..1}.user$->{0..1}
-            tableStrategy:
-              inline:
-                shardingColumn: id
-                algorithm-expression: tab_user$->{id % 2}
-        #读写分离
-        master-slave-rules:
-          master0:
-            master-data-source-name: master0
-            slave-data-source-names: slave0
-          master1:
-            master-data-source-name: master1
-            slave-data-source-names: slave1
+    #分库分表
+    sharding:
+    #根据age分库
+      default-database-strategy:
+        inline:
+          shardingColumn: age
+          algorithm-expression: master$->{age % 2}
+      #根据id分表
+      tables:
+        user:
+          actualDataNodes: master$->{0..1}.user$->{0..1}
+          tableStrategy:
+            inline:
+              shardingColumn: id
+              algorithm-expression: tab_user$->{id % 2}
+              key-generate-strategy:
+                column: uid
+                key-generator-name: snowflake
+                worker.id: 123
+      #读写分离
+      master-slave-rules:
+        master0:
+          master-data-source-name: master0
+          slave-data-source-names: slave0
+        master1:
+          master-data-source-name: master1
+          slave-data-source-names: slave1
+    spring.shardingsphere.rules.sharding.tables.t_order.key-generate-strategy.key-generator-name=snowflake
     enabled: true
 #  rabbitmq:
 #    host:
