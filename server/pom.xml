@@ -25,6 +25,7 @@
 		<validation-api.version>1.1.0.Final</validation-api.version>
 		<hibernate-validator.version>5.2.0.Final</hibernate-validator.version>
 		<xxl-job-core>1.8.2</xxl-job-core>
+		<druid>1.1.16</druid>
 	</properties>
 
 	<dependencies>
@@ -90,16 +91,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--消息队列-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
+		<!--&lt;!&ndash;消息队列&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-amqp</artifactId>-->
+		<!--</dependency>-->
 		<!--数据库-->
+		<!--mybatis驱动-->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<version>8.0.18</version>
 		</dependency>
 		<!--mybatis-->
 		<dependency>
@@ -113,17 +115,24 @@
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>3.3.0</version>
 		</dependency>
+
 		<!--pagehelper-->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>${pagehelper-spring-boot-starter.version}</version>
 		</dependency>
+
 		<!--shardingsphere最新版本-->
 		<dependency>
 			<groupId>org.apache.shardingsphere</groupId>
 			<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-			<version>4.0.0-RC1</version>
+			<version>4.0.0-RC2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shardingsphere</groupId>
+			<artifactId>sharding-jdbc-spring-namespace</artifactId>
+			<version>4.0.0-RC2</version>
 		</dependency>
 		<!--lombok实体工具-->
 		<dependency>

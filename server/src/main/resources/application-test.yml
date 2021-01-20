@@ -1,0 +1,103 @@
+server:
+  port: 9004
+#数据库连接
+spring:
+  shardingsphere:
+    datasource:
+      names: master0,slave0,master1,slave1
+      master0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/ms0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+        username: root
+        password: root
+      slave0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/sl0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+        username: root
+        password: root
+      master1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/ms1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+        username: root
+        password: admin
+      slave1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/sl1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+        username: root
+        password: root
+      #分库分表
+      sharding:
+      #根据age分库
+        default-database-strategy:
+          inline:
+            shardingColumn: age
+            algorithm-expression: master$->{age % 2}
+        #根据id分表
+        tables:
+          user:
+            actualDataNodes: master$->{0..1}.user$->{0..1}
+            tableStrategy:
+              inline:
+                shardingColumn: id
+                algorithm-expression: tab_user$->{id % 2}
+        #读写分离
+        master-slave-rules:
+          master0:
+            master-data-source-name: master0
+            slave-data-source-names: slave0
+          master1:
+            master-data-source-name: master1
+            slave-data-source-names: slave1
+    enabled: true
+#  rabbitmq:
+#    host:
+#    port:
+#    username:
+#    password:
+#    virtual-host:
+#    exchange:
+#      direct:
+#        ucredit: direct.exchange.dev
+#    queue:
+#      notify: queue.notify.dev
+#  redis:
+#    host:
+#    port:
+#    password:
+#    jedis:
+#      pool:
+##        max-wait: -1
+#        max-idle: 8
+#        min-idle: 0
+#        max-active: 8
+##    timeout: 0
+
+thirdparty:
+  rest-template:
+    readTimeout: 30 #单位：秒
+    connectTimeout: 30
+    connectionRequestTimeout: 30
+    maxTotal: 1000
+    defaultMaxPerRoute: 1000
+  remote:
+    host: http://127.0.0.1:80
+    url_test: http://127.0.0.1:80
+
+#xxl:
+#  job:
+#    admin:
+#      addresses:
+#    executor:
+#      appname: institution-ucredit
+#      ip: 127.0.0.1
+#      port: 9999
+#      logpath: /tmp
+
+
+
+
+

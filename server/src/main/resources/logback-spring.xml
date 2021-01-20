@@ -2,6 +2,18 @@
 <configuration debug="false" scan="true" scanPeriod="1 seconds">
     <property name="ES_PATTERN" value="%d^|%level^|%thread^|%c^|%M^|%X{X-B3-TraceId}-%X{X-B3-SpanId}^|%msg%n" />
     <!-- 开发环境 -->
+    <springProfile name="test">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${ES_PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.renrendai.loan.ucredit" level="DEBUG" />
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
+    <!-- 开发环境 -->
     <springProfile name="dev">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
@@ -14,7 +26,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="test">
+    <springProfile name="relase">
         <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <!-- 文件路径 -->
             <file>/opt/app/tomcat/logs/server.eslog</file>

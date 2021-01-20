@@ -13,14 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitMQListener {
 
-
-
-
     /**
      * 自动跳转流程控制（内部流程节点逻辑入口）
      * @param mqNotify
      */
-    @RabbitListener(queues = "${spring.rabbitmq.queue.notify}" )
+//    @RabbitListener(queues = "${spring.rabbitmq.queue.notify}" )
     public void notifyLoanflow(MQNotify mqNotify) {
         TraceIdUtil.setTraceId(mqNotify.getTraceId());
         log.info("接收流程MQ通知: {}", JsonUtils.toJson(mqNotify));

@@ -28,9 +28,9 @@ public class ServerProperties {
     /**
      * ======================== remote配置 ================================
      */
-    @Value("${thirdparty.remote.host}")
+    @Value("${thirdparty.remote.host:http://127.0.0.1:80}")
     private String remoteHost;
-    @Value("${thirdparty.remote.test}")
+    @Value("${thirdparty.remote.test:http://127.0.0.1:8}")
     private String piccUrlRemoteTest;
 
 }

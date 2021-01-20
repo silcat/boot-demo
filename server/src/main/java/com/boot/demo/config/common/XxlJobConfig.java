@@ -13,8 +13,8 @@ import java.net.UnknownHostException;
 
 
 @Slf4j
-@Configuration
-@ComponentScan(basePackages = "com.boot.demo.jobhandler")
+//@Configuration
+//@ComponentScan(basePackages = "com.boot.demo.jobhandler")
 public class XxlJobConfig {
 
     @Value("${xxl.job.admin.addresses}")
