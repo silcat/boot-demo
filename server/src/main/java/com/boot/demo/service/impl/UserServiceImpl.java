@@ -19,10 +19,10 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
     @Override
-    public User list(Long uid) {
+    public User list(int age) {
         Wrapper<User> queryWrapper = Wrappers.<User>query()
                 .lambda()
-                .eq(User::getId, uid)
+                .eq(User::getAge, age)
                 .last("limit 1");
         return userMapper.selectOne(queryWrapper);
     }

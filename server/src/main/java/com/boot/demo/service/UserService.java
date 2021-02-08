@@ -17,7 +17,7 @@ public interface UserService {
     /**
      *  获取所有用户信息
      */
-    User list(Long uid);
+    User list(int age);
 
     /**
      *  批量 保存用户信息

@@ -22,7 +22,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3306/ms1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
         username: root
-        password: admin
+        password: root
       slave1:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -42,12 +42,18 @@ spring:
           actualDataNodes: master$->{0..1}.user$->{0..1}
           tableStrategy:
             inline:
-              shardingColumn: id
-              algorithm-expression: tab_user$->{id % 2}
+              shardingColumn: order_id
+              algorithm-expression: user$->{order_id % 2}
               key-generate-strategy:
-                column: uid
+                column: order_id
                 key-generator-name: snowflake
                 worker.id: 123
+          #根据spi配置手动订单号生产策略
+#          key-generator:
+#            column: order_id
+#            type: AtomicLong
+#            props:
+#              worker.id: 123
       #读写分离
       master-slave-rules:
         master0:
@@ -56,7 +62,6 @@ spring:
         master1:
           master-data-source-name: master1
           slave-data-source-names: slave1
-    spring.shardingsphere.rules.sharding.tables.t_order.key-generate-strategy.key-generator-name=snowflake
     enabled: true
 #  rabbitmq:
 #    host:
