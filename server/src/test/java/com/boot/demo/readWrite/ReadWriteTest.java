@@ -6,9 +6,9 @@ import com.boot.demo.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.jws.soap.SOAPBinding;
 
-public class BaseServiceTest extends com.boot.demo.BaseServiceTest {
+
+public class ReadWriteTest extends com.boot.demo.BaseServiceTest {
     @Autowired
     public UserService userService;
     @Test
