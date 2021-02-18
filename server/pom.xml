@@ -29,6 +29,23 @@
 	</properties>
 
 	<dependencies>
+        <!--cloud客户端配置-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
 		<!--spring-boot-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -145,7 +162,7 @@
 		</dependency>
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-all</artifactId>
+            <artifactId>seata-spring-boot-starter</artifactId>
             <version>1.1.0</version>
         </dependency>
         <dependency>
@@ -245,7 +262,6 @@
 		<finalName>server</finalName>
 	</build>
 
-
 	<profiles>
 		<profile>
 			<id>dev</id>
@@ -261,7 +277,14 @@
 			<properties>
 				<configProfile>test</configProfile>
 			</properties>
+
 		</profile>
+        <profile>
+            <id>eurake-seata</id>
+            <properties>
+                <configProfile>eurake-seata</configProfile>
+            </properties>
+        </profile>
 		<profile>
 			<id>release</id>
 			<properties>

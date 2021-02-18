@@ -1,6 +1,26 @@
 server:
   port: 9004
 #数据库连接
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+  client:
+    registry-fetch-interval-seconds: 5
+    # registerWithEureka是否向注册中心注册自己
+    register-with-eureka: true
+    # fetchRegistry是否需要去检索服务
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  server:
+    ## 主动失效检测间隔,配置成5秒
+    eviction-interval-timer-in-ms: 5000
+    enable-self-preservation: true
+    ## 心跳阈值计算周期，如果开启自我保护模式，可以改一下这个配置
+    renewal-threshold-update-interval-ms: 120000
+    use-read-only-response-cache: false
 spring:
   shardingsphere:
     datasource:
@@ -87,18 +107,20 @@ spring:
 ##    timeout: 0
 # Seata 配置项，对应 SeataProperties 类
 seata:
-  # Seata 应用编号，默认为 ${spring.application.name}
-  application-id: ${spring.application.name}
-  # Seata 事务组编号，用于 TC 集群名
-  tx-service-group: ${spring.application.name}-group
-  # 服务配置项，对应 ServiceProperties 类
+  enabled: true
+  application-id: demo
+  tx-service-group: demo_tx_group
   service:
-    # 虚拟组和分组的映射
     vgroup-mapping:
-      multi-datasource-service-group: default
-    # 分组和 Seata 服务的映射
-    grouplist:
-      default: 127.0.0.1:8091
+      my_test_tx_group : default
+  registry:
+    type: eureka
+    eureka:
+      service-url: http://localhost:8761/eureka
+  config:
+    type: file
+
+
 thirdparty:
   rest-template:
     readTimeout: 30 #单位：秒
