@@ -110,15 +110,13 @@ seata:
   enabled: true
   application-id: demo
   tx-service-group: demo_tx_group
-  service:
-    vgroup-mapping:
-      my_test_tx_group : default
   registry:
     type: eureka
     eureka:
       service-url: http://localhost:8761/eureka
   config:
     type: file
+  use-jdk-proxy: true
 
 
 thirdparty:
