@@ -29,7 +29,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String insertForeach(User userVOList) {
+        if (true){
+            throw new RuntimeException();
+        }
+
         userMapper.insert(userVOList);
+
         return "";
     }
 }

@@ -21,6 +21,9 @@ public class OrderController {
     String update(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money, @RequestParam("status") Integer status){
         User user = new User();
         user.setAge(10);
+        if (userId == 10){
+            throw new RuntimeException();
+        }
         userService.insertForeach(user);
         return "通知成功";
     }
