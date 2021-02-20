@@ -12,6 +12,7 @@ public class SeataHandlerInterceptor implements HandlerInterceptor {
    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String xid = request.getHeader(RootContext.KEY_XID);
         if (StringUtils.isNotBlank(xid)) {
+            String xid1 = RootContext.getXID();
             RootContext.bind(xid);
             System.out.println("feign xid：" + xid);
         }

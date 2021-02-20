@@ -41,11 +41,11 @@ spring:
         password: root
     #分库分表
     sharding:
-    #根据age分库
+    #不分库（seata undolog无法安装分库键正确路由）
       default-database-strategy:
         inline:
           shardingColumn: age
-          algorithm-expression: master$->{age % 2}
+          algorithm-expression: master$->{1}
       #根据id分表
       tables:
         user:
