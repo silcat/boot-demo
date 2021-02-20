@@ -22,19 +22,24 @@ eureka:
     renewal-threshold-update-interval-ms: 120000
     use-read-only-response-cache: false
 spring:
+  datasource:
+    db1:
+      url: jdbc:mysql://localhost:3306/ms0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
+      username: root
+      password: root
+      driverClassName: com.mysql.cj.jdbc.Driver
+      validation-query: SELECT 1
+      test-on-borrow: true
+      test-while-idle: true
+      time-between-eviction-runs-millis: 18800
   shardingsphere:
+    enabled: true
     datasource:
-      names: master0,slave0,master1,slave1
+      names: master0,master1
       master0:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3306/ms0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
-        username: root
-        password: root
-      slave0:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/sl0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
         username: root
         password: root
       master1:
@@ -43,21 +48,10 @@ spring:
         jdbc-url: jdbc:mysql://localhost:3306/ms1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
         username: root
         password: root
-      slave1:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/sl1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
-        username: root
-        password: root
     #分库分表
     sharding:
-      default-data-source-name: master0
-      #根据age分库
-      default-database-strategy:
-        inline:
-          shardingColumn: age
-          algorithm-expression: master$->{age % 2}
-      #根据id分表
+      default-data-source-name: master1
+      #不分库（seata undolog无法安装分库键正确路由）
       tables:
         user:
           actualDataNodes: master$->{0..1}.user$->{0..1}
@@ -74,47 +68,19 @@ spring:
                 key-generator-name: snowflake
                 worker.id: 123
           #根据spi配置手动订单号生产策略
+
+
 #          key-generator:
 #            column: order_id
 #            type: AtomicLong
 #            props:
 #              worker.id: 123
-      #读写分离
-      master-slave-rules:
-        master0:
-          master-data-source-name: master0
-          slave-data-source-names: slave0
-        master1:
-          master-data-source-name: master1
-          slave-data-source-names: slave1
-    enabled: true
-#  rabbitmq:
-#    host:
-#    port:
-#    username:
-#    password:
-#    virtual-host:
-#    exchange:
-#      direct:
-#        ucredit: direct.exchange.dev
-#    queue:
-#      notify: queue.notify.dev
-#  redis:
-#    host:
-#    port:
-#    password:
-#    jedis:
-#      pool:
-##        max-wait: -1
-#        max-idle: 8
-#        min-idle: 0
-#        max-active: 8
-##    timeout: 0
+
 # Seata 配置项，对应 SeataProperties 类
 seata:
   enabled: true
   application-id: demo
-  tx-service-group: demo_tx_group
+  tx-service-group: store_tx_group
   registry:
     type: eureka
     eureka:

@@ -286,9 +286,9 @@
             </properties>
         </profile>
 		<profile>
-			<id>release</id>
+			<id>eurake-seata-dydb</id>
 			<properties>
-				<configProfile>release</configProfile>
+				<configProfile>eurake-seata-dydb</configProfile>
 			</properties>
 		</profile>
 		<profile>

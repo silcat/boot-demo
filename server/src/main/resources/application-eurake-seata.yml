@@ -32,7 +32,6 @@ spring:
         jdbc-url: jdbc:mysql://localhost:3306/ms0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
         username: root
         password: root
-
       master1:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -41,15 +40,15 @@ spring:
         password: root
     #分库分表
     sharding:
-    #不分库（seata undolog无法安装分库键正确路由）
-      default-database-strategy:
-        inline:
-          shardingColumn: age
-          algorithm-expression: master$->{1}
-      #根据id分表
+      default-data-source-name: master1
+      #不分库（seata undolog无法安装分库键正确路由）
       tables:
         user:
           actualDataNodes: master$->{0..1}.user$->{0..1}
+          databaseStrategy:
+            inline:
+              shardingColumn: age
+              algorithm-expression: master$->{1}
           tableStrategy:
             inline:
               shardingColumn: order_id
@@ -59,6 +58,8 @@ spring:
                 key-generator-name: snowflake
                 worker.id: 123
           #根据spi配置手动订单号生产策略
+
+
 #          key-generator:
 #            column: order_id
 #            type: AtomicLong
