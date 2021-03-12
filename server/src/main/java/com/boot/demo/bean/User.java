@@ -22,17 +22,11 @@ import java.util.Date;
 @TableName("user")
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @TableId("order_id")
-    private Long orderId;
-
-
-
-    /**
-     * 年龄
-     */
+    @TableId
+    private Long id;
     private Integer age;
-    private String db;
+    @Column(name = "user_id")
+    private long userId;
 
 
 }

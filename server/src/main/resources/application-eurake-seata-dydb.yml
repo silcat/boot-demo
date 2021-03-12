@@ -22,16 +22,6 @@ eureka:
     renewal-threshold-update-interval-ms: 120000
     use-read-only-response-cache: false
 spring:
-  datasource:
-    db1:
-      url: jdbc:mysql://localhost:3306/ms0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
-      username: root
-      password: root
-      driverClassName: com.mysql.cj.jdbc.Driver
-      validation-query: SELECT 1
-      test-on-borrow: true
-      test-while-idle: true
-      time-between-eviction-runs-millis: 18800
   shardingsphere:
     enabled: true
     datasource:
@@ -51,30 +41,35 @@ spring:
     #分库分表
     sharding:
       default-data-source-name: master1
-      #不分库（seata undolog无法安装分库键正确路由）
       tables:
+        order:
+          actualDataNodes: master$->{1}.order
+          databaseStrategy:
+            inline:
+              shardingColumn: user_id
+              algorithm-expression: master$->{1}
+          tableStrategy:
+              key-generate-strategy:
+                column: loan_id
+                key-generator-name: snowflake
+                worker.id: 123
         user:
           actualDataNodes: master$->{0..1}.user$->{0..1}
           databaseStrategy:
             inline:
-              shardingColumn: age
-              algorithm-expression: master$->{1}
+              shardingColumn: user_id
+              algorithm-expression: master$->{user_id % 2}
           tableStrategy:
             inline:
-              shardingColumn: order_id
-              algorithm-expression: user$->{order_id % 2}
-              key-generate-strategy:
-                column: order_id
-                key-generator-name: snowflake
-                worker.id: 123
-          #根据spi配置手动订单号生产策略
-
-
-#          key-generator:
-#            column: order_id
-#            type: AtomicLong
-#            props:
-#              worker.id: 123
+              shardingColumn: age
+              algorithm-expression: user$->{age % 2}
+      master-slave-rules:
+        master0:
+          master-data-source-name: master0
+          slave-data-source-names: master0
+        master1:
+          master-data-source-name: master1
+          slave-data-source-names: master1
 
 # Seata 配置项，对应 SeataProperties 类
 seata:

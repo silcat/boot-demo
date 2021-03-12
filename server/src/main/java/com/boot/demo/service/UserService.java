@@ -17,12 +17,9 @@ public interface UserService {
     /**
      *  获取所有用户信息
      */
-    User list(int age);
+    User list(User user);
 
-    /**
-     *  批量 保存用户信息
-     * @param userVOList
-     */
-    String  insertForeach(User userVOList);
+
+    void insert(User user);
 
 }

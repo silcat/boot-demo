@@ -19,20 +19,16 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
     @Override
-    public User list(int age) {
+    public User list(User user) {
         Wrapper<User> queryWrapper = Wrappers.<User>query()
                 .lambda()
-                .eq(User::getAge, age)
+                .eq(User::getUserId, user.getUserId())
                 .last("limit 1");
         return userMapper.selectOne(queryWrapper);
     }
 
     @Override
-    public String insertForeach(User userVOList) {
-        userMapper.insert(userVOList);
-        if (true){
-            throw new RuntimeException();
-        }
-        return "";
+    public void insert(User user) {
+        userMapper.insert(user);
     }
 }
