@@ -13,7 +13,7 @@
             <appender-ref ref="CONSOLE" />
         </root>
     </springProfile>
-    <springProfile name="eurake-seata-dydb">
+    <springProfile name="eurake-seata">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                 <pattern>${ES_PATTERN}</pattern>

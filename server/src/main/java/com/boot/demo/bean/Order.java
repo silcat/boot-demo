@@ -42,11 +42,11 @@ import java.math.BigDecimal;
 public final class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @TableId(type = IdType.AUTO)
+    @TableId
     @Column(name = "loan_id")
     private long loanId;
     @Column(name = "user_id")
-    private long userId;
+    private Long userId;
     private BigDecimal total;
     private Integer status;
 }

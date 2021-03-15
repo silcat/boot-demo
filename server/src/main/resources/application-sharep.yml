@@ -74,11 +74,11 @@ spring:
                 key-generator-name: snowflake
                 worker.id: 123
           #根据spi配置手动订单号生产策略
-#          key-generator:
-#            column: order_id
-#            type: AtomicLong
-#            props:
-#              worker.id: 123
+          key-generator:
+            column: order_id
+            type: AtomicLong
+            props:
+              worker.id: 123
       #读写分离
       master-slave-rules:
         master0:

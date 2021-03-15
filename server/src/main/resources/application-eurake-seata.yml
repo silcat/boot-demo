@@ -43,18 +43,32 @@ spring:
       default-data-source-name: master1
       #不分库（seata undolog无法安装分库键正确路由）
       tables:
+        order:
+          actualDataNodes: master$->{1}.order$->{0..1}
+          databaseStrategy:
+            inline:
+              shardingColumn: user_id
+              algorithm-expression: master$->{1}
+        tableStrategy:
+          inline:
+            shardingColumn: loan_id
+            algorithm-expression: order$->{loan_id % 2}
+            key-generate-strategy:
+              column: loan_id
+              key-generator-name: snowflake
+              worker.id: 123
         user:
-          actualDataNodes: master$->{0..1}.user$->{0..1}
+          actualDataNodes: master$->{1}.user$->{0..1}
           databaseStrategy:
             inline:
               shardingColumn: age
               algorithm-expression: master$->{1}
           tableStrategy:
             inline:
-              shardingColumn: order_id
-              algorithm-expression: user$->{order_id % 2}
+              shardingColumn: uid
+              algorithm-expression: user$->{uid % 2}
               key-generate-strategy:
-                column: order_id
+                column: id
                 key-generator-name: snowflake
                 worker.id: 123
           #根据spi配置手动订单号生产策略

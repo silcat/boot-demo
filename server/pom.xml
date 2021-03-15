@@ -273,9 +273,9 @@
 			</activation>
 		</profile>
 		<profile>
-			<id>test</id>
+			<id>sharep</id>
 			<properties>
-				<configProfile>test</configProfile>
+				<configProfile>sharep</configProfile>
 			</properties>
 
 		</profile>

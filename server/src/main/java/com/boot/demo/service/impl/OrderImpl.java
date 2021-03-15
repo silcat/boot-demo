@@ -37,6 +37,8 @@ public class OrderImpl implements IOrderService {
     public void update(Order order) {
         Order order1 = getByUid(order.getUserId());
         if (Optional.ofNullable(order1).isPresent()) {
+            order.setLoanId(order1.getLoanId());
+            order.setUserId(null);
             orderMapper.updateById(order);
         }
     }
