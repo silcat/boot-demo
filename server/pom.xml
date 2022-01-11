@@ -29,6 +29,17 @@
 	</properties>
 
 	<dependencies>
+		<!--xa事务-->
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>4.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
         <!--cloud客户端配置-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -251,6 +262,7 @@
         </dependencies>
     </dependencyManagement>
 
+
 	<build>
 		<plugins>
 			<plugin>
@@ -264,13 +276,10 @@
 
 	<profiles>
 		<profile>
-			<id>dev</id>
+			<id>sp-xa</id>
 			<properties>
-				<configProfile>dev</configProfile>
+				<configProfile>sp-xa</configProfile>
 			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
 		<profile>
 			<id>sharep</id>
@@ -307,10 +316,13 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>release-ucredit</id>
+			<id>test</id>
 			<properties>
-				<configProfile>release-ucredit</configProfile>
+				<configProfile>test</configProfile>
 			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 </project>

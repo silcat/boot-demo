@@ -2,16 +2,16 @@ package com.boot.demo.service.impl;
 
 import com.boot.demo.config.common.RedisUtils;
 import com.boot.demo.service.IRedisService;
+import io.netty.util.CharsetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.RedisStringCommands;
-import org.springframework.data.redis.connection.ReturnType;
+import org.springframework.data.redis.connection.*;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.types.Expiration;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -213,5 +213,11 @@ public class RedisServiceImpl implements IRedisService {
     @Override
     public void decr(String key) {
         Long decrement = template.boundValueOps(key).decrement();
+    }
+
+    @Override
+    public void publis(String key,String string) {
+        template.convertAndSend(key, string.getBytes(CharsetUtil.UTF_8));
+
     }
 }

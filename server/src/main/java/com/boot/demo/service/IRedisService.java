@@ -122,13 +122,8 @@ public interface IRedisService {
      */
     Boolean setBitSwitch(String key, Long offset, boolean value);
 
-    /**
-     * 限流
-     * @param key
-     * @param arg
-     * @return
-     */
     Boolean limit(String key, String limit);
     void incr(String key);
     void decr(String key);
+    void publis(String key,String string);
 }
