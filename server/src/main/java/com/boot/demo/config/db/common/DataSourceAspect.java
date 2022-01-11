@@ -1,4 +1,4 @@
-package com.boot.demo.config.db;
+package com.boot.demo.config.db.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,7 +19,7 @@ import java.util.Objects;
 @Slf4j
 public class DataSourceAspect {
 
-    @Pointcut("@annotation(DB)")
+    @Pointcut("@annotation(com.boot.demo.config.db.common.DB)")
     public void doPointCut(){}
 
     @Around("doPointCut()")

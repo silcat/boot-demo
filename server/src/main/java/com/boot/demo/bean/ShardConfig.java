@@ -1,5 +1,6 @@
 package com.boot.demo.bean;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class ShardConfig {
      * 配置键
      */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId
     private String configKey;
 
     /**

@@ -21,7 +21,7 @@ eureka:
     ## 心跳阈值计算周期，如果开启自我保护模式，可以改一下这个配置
     renewal-threshold-update-interval-ms: 120000
     use-read-only-response-cache: false
-xa:
+atxa:
   switch: true
 spring:
   jta:
@@ -32,21 +32,25 @@ spring:
     datasource:
       names: master0,master1
       master0:
+        resourceName: resource0
         uniqueResourceName: resource0
-        xaDataSourceClassName: com.mysql.cj.jdbc.MysqlXADataSource
-        type: com.boot.demo.config.db.AtomikosDataSourceBean
+        type: com.boot.demo.config.db.MyAtomikosDataSourceBean
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/ms0?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
-        user: root
+        username: root
         password: root
+        minPoolSize: 10
+        maxPoolSize: 100
       master1:
+        resourceName: resource1
         uniqueResourceName: resource1
-        xaDataSourceClassName: com.mysql.cj.jdbc.MysqlXADataSource
-        type: org.springframework.boot.jta.atomikos.AtomikosDataSourceBean
+        type: com.boot.demo.config.db.MyAtomikosDataSourceBean
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/ms1?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&tinyInt1isBit=false
-        user: root
+        username: root
         password: root
+        minPoolSize: 10
+        maxPoolSize: 100
     #分库分表
     sharding:
       default-data-source-name: master0
@@ -81,10 +85,10 @@ spring:
       master-slave-rules:
         master0:
           master-data-source-name: master0
-          slave-data-source-names: slave0
+          slave-data-source-names: master0
         master1:
           master-data-source-name: master1
-          slave-data-source-names: slave1
+          slave-data-source-names: master1
     enabled: true
 #  rabbitmq:
 #    host:
@@ -111,16 +115,6 @@ spring:
 # Seata 配置项，对应 SeataProperties 类
 seata:
   enabled: false
-  application-id: demo
-  tx-service-group: demo_tx_group
-  registry:
-    type: eureka
-    eureka:
-      service-url: http://localhost:8761/eureka
-  config:
-    type: file
-  use-jdk-proxy: true
-
 
 thirdparty:
   rest-template:
