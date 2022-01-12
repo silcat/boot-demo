@@ -1,7 +1,5 @@
 package com.boot.demo.readWrite;
 
-
-import com.boot.demo.bean.User;
 import com.boot.demo.mapper.TestMapper;
 import com.boot.demo.service.UserService;
 import org.junit.Test;

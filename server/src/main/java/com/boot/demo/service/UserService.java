@@ -21,5 +21,5 @@ public interface UserService {
 
 
     void insert(User user);
-
+    public void testXA() ;
 }

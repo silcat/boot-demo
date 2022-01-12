@@ -8,6 +8,7 @@ import com.boot.demo.bean.User;
 import com.boot.demo.mapper.UserMapper;
 import com.boot.demo.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -30,5 +31,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void insert(User user) {
         userMapper.insert(user);
+    }
+    @Override
+    @Transactional
+    public void testXA() {
+        User user = new User();
+        user.setAge(1);
+        user.setUserId(4);
+        this.insert(user);
+        User user1 = new User();
+        user1.setAge(1);
+        user1.setUserId(5);
+        this.insert(user1);
+        int i = 1 / 0;
     }
 }

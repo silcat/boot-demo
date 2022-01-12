@@ -28,6 +28,7 @@ spring:
     atomikos:
       datasource:
         beanName: xa
+    enabled: true
   shardingsphere:
     datasource:
       names: master0,master1
@@ -57,27 +58,27 @@ spring:
       #根据age分库
       default-database-strategy:
         inline:
-          shardingColumn: age
-          algorithm-expression: master$->{age % 2}
+          shardingColumn: user_id
+          algorithm-expression: master$->{user_id % 2}
       #根据id分表
       tables:
         user:
           actualDataNodes: master$->{0..1}.user$->{0..1}
           databaseStrategy:
             inline:
-              shardingColumn: age
-              algorithm-expression: master$->{1}
+              shardingColumn: user_id
+              algorithm-expression: master$->{user_id % 2}
           tableStrategy:
             inline:
-              shardingColumn: order_id
-              algorithm-expression: user$->{order_id % 2}
+              shardingColumn: age
+              algorithm-expression: user$->{age % 2}
               key-generate-strategy:
-                column: order_id
+                column: user_id
                 key-generator-name: snowflake
                 worker.id: 123
           #根据spi配置手动订单号生产策略
           key-generator:
-            column: order_id
+            column: user_id
             type: AtomicLong
             props:
               worker.id: 123

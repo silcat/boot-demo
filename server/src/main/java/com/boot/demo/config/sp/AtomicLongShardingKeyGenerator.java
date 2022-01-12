@@ -5,6 +5,7 @@ import lombok.Data;
 import org.apache.shardingsphere.spi.keygen.ShardingKeyGenerator;
 
 import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 // 单机版 AtomicLong 类型的ID生成器
@@ -17,7 +18,7 @@ public class AtomicLongShardingKeyGenerator implements ShardingKeyGenerator
 
     @Override
     public Comparable<?> generateKey() {
-        return atomicLong.incrementAndGet();
+        return UUID.randomUUID();
     }
 
     @Override
